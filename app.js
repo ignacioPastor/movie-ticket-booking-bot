@@ -9,7 +9,10 @@ server.listen(process.env.port || process.env.PORT || 3978, () => {
   console.log(`${server.name} listening to ${server.url}`);
 });
 
-const connector = new builder.ChatConnector();
+const connector = new builder.ChatConnector({
+  appId: process.env.appIdAzure || conf.appIdAzure,
+  appPassword: process.env.appSecretAzure || conf.appSecretAzure
+});
 server.post('/api/messages', connector.listen());
 
 const bot = new builder.UniversalBot(connector);
