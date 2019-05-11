@@ -15,7 +15,8 @@ const connector = new builder.ChatConnector({
 });
 server.post('/api/messages', connector.listen());
 
-const bot = new builder.UniversalBot(connector);
+const inMemoryStorage = new builder.MemoryBotStorage();
+const bot = new builder.UniversalBot(connector).set('storage', inMemoryStorage);;
 
 const luisModelUrl = `https://${process.env.luisAPIHostName || conf.luisAPIHostName}/luis/v2.0/apps/${process.env.luisAppId || conf.luisAppId}?subscription-key=${process.env.luisAPIKey || conf.luisAPIKey}`;
 
