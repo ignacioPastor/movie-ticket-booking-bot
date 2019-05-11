@@ -1,7 +1,7 @@
 const builder = require('botbuilder');
 const restify = require('restify');
-
-const conf = require('./keys.js');
+let conf;
+try { conf = require('./keys.js'); } catch (err) { conf = {}; }
 
 // Setup Restify Server
 const server = restify.createServer();
