@@ -1,5 +1,6 @@
 const builder = require('botbuilder');
 const restify = require('restify');
+
 const conf = require('./keys.js');
 
 // Setup Restify Server
@@ -13,7 +14,7 @@ server.post('/api/messages', connector.listen());
 
 const bot = new builder.UniversalBot(connector);
 
-const luisModelUrl = `https://${conf.luisAPIHostName}/luis/v2.0/apps/${conf.luisAppId}?subscription-key=${conf.luisAPIKey}`;
+const luisModelUrl = `https://${process.env.luisAPIHostName || conf.luisAPIHostName}/luis/v2.0/apps/${process.env.luisAppId || conf.luisAppId}?subscription-key=${process.env.luisAPIKey || conf.luisAPIKey}`;
 
 const recognizer = new builder.LuisRecognizer(luisModelUrl);
 const intents = new builder.IntentDialog({
